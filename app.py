@@ -1,8 +1,8 @@
-from flask import Flask, flash, request, redirect, url_for, render_template
-import urllib.request
-
-
 import os
+from ocr import *
+from PIL import Image
+
+from flask import Flask, flash, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -16,7 +16,7 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 
-os.system('python ocr.py')
+# functions defined in test.py
 
 
 def allowed_file(filename):
@@ -24,7 +24,8 @@ def allowed_file(filename):
 
 
 @app.route('/')
-def home():
+def home(file):
+    pathconfig(file)
     return render_template('index.html')
 
 
